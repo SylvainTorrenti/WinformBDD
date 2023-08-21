@@ -1,5 +1,5 @@
-﻿using MySql.Data.MySqlClient;
-using WinformBDD.Properties;
+﻿using ConnectinBDD.Properties;
+using MySql.Data.MySqlClient;
 
 namespace WinformBDD
 {
