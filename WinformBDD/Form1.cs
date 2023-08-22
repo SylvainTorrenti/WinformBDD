@@ -1,21 +1,38 @@
+using ConnectinBDD;
+using System.ComponentModel;
+
 namespace WinformBDD
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
         db _db = new db();
-        public Form1()
+        BindingList<Utilisateur> _utils = new();
+        public frmMain()
         {
             InitializeComponent();
+            InitializeBinding();
+
         }
 
-        private void btConnect_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            _db.Connect();
-        }
+            Utilisateur current = bsUtilisateur.Current as Utilisateur;
 
-        private void btDisconect_Click(object sender, EventArgs e)
+            _utils.Clear();
+            var u = _db.GetUtilisateurs();
+            foreach (Utilisateur utilisateur in u)
+                _utils.Add(utilisateur);
+
+            if (current is not null)
+            {
+                bsUtilisateur.Position = _utils.IndexOf(_utils.Where(u => u.Id == current.Id).FirstOrDefault());
+            }
+        }
+        private void InitializeBinding()
         {
-            _db.Disconnect();
+            _utils = new BindingList<Utilisateur>();
+            bsUtilisateur.DataSource = _utils;
+            dgvUtilisateur.DataSource = bsUtilisateur;
         }
     }
 }
