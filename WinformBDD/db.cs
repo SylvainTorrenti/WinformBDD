@@ -14,6 +14,7 @@ namespace WinformBDD
             //Creation de la connection avec le chemin mis en Setting
             _dbconnection = new(Settings.Default.dbConnect);
         }
+        //Methode pour récuperer tout les champs de la table utilisateur de la BDD
         public IEnumerable<Utilisateur> GetUtilisateurs()
         {
             //récupération des données de la table utilisateur
