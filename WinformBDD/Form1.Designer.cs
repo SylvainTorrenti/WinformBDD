@@ -33,10 +33,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             tableLayoutPanel1 = new TableLayoutPanel();
             dgvUtilisateur = new DataGridView();
+            flowLayoutPanel1 = new FlowLayoutPanel();
             btRefresh = new Button();
             bsUtilisateur = new BindingSource(components);
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUtilisateur).BeginInit();
+            flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bsUtilisateur).BeginInit();
             SuspendLayout();
             // 
@@ -45,13 +47,13 @@
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(dgvUtilisateur, 0, 0);
-            tableLayoutPanel1.Controls.Add(btRefresh, 0, 1);
+            tableLayoutPanel1.Controls.Add(flowLayoutPanel1, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 98F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 61F));
             tableLayoutPanel1.Size = new Size(595, 392);
             tableLayoutPanel1.TabIndex = 0;
             // 
@@ -81,21 +83,29 @@
             dgvUtilisateur.RowHeadersVisible = false;
             dgvUtilisateur.RowTemplate.Height = 25;
             dgvUtilisateur.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUtilisateur.Size = new Size(589, 288);
+            dgvUtilisateur.Size = new Size(589, 325);
             dgvUtilisateur.TabIndex = 2;
+            // 
+            // flowLayoutPanel1
+            // 
+            flowLayoutPanel1.Controls.Add(btRefresh);
+            flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.Location = new Point(3, 334);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(589, 55);
+            flowLayoutPanel1.TabIndex = 3;
             // 
             // btRefresh
             // 
-            btRefresh.Anchor = AnchorStyles.None;
             btRefresh.Image = ConnectinBDD.Properties.Resources.refresh_arrow_1546;
             btRefresh.ImageAlign = ContentAlignment.MiddleLeft;
-            btRefresh.Location = new Point(218, 318);
+            btRefresh.Location = new Point(3, 3);
             btRefresh.Name = "btRefresh";
-            btRefresh.Size = new Size(159, 49);
-            btRefresh.TabIndex = 1;
+            btRefresh.Size = new Size(149, 52);
+            btRefresh.TabIndex = 0;
             btRefresh.Text = "Actualiser";
             btRefresh.UseVisualStyleBackColor = true;
-            btRefresh.Click += button1_Click;
+            btRefresh.Click += btRefresh_Click;
             // 
             // frmMain
             // 
@@ -110,6 +120,7 @@
             Text = "Utilisateur";
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvUtilisateur).EndInit();
+            flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)bsUtilisateur).EndInit();
             ResumeLayout(false);
         }
@@ -118,7 +129,8 @@
 
         private TableLayoutPanel tableLayoutPanel1;
         private DataGridView dgvUtilisateur;
-        private Button btRefresh;
         private BindingSource bsUtilisateur;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Button btRefresh;
     }
 }

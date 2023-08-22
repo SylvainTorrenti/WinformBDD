@@ -14,7 +14,7 @@ namespace WinformBDD
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btRefresh_Click(object sender, EventArgs e)
         {
             Utilisateur current = bsUtilisateur.Current as Utilisateur;
 
