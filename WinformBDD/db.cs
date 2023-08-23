@@ -30,8 +30,6 @@ namespace WinformBDD
             {
                 _dbconnection.Close();
             }
-
-
         }
     }
 }

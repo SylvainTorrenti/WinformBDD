@@ -37,6 +37,7 @@
             btRefresh = new Button();
             btDelete = new Button();
             btAdd = new Button();
+            btModify = new Button();
             tlpChampText = new TableLayoutPanel();
             lbName = new Label();
             lbFirstname = new Label();
@@ -45,7 +46,6 @@
             tbxFirstName = new TextBox();
             dtpBirthday = new DateTimePicker();
             bsUtilisateur = new BindingSource(components);
-            btModify = new Button();
             tlpMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUtilisateur).BeginInit();
             flpRefresh.SuspendLayout();
@@ -152,6 +152,19 @@
             btAdd.UseVisualStyleBackColor = true;
             btAdd.Click += btAdd_Click;
             // 
+            // btModify
+            // 
+            btModify.Image = ConnectinBDD.Properties.Resources.pen_edit_modify_icon_149416;
+            btModify.ImageAlign = ContentAlignment.MiddleLeft;
+            btModify.Location = new Point(324, 3);
+            btModify.Name = "btModify";
+            btModify.Size = new Size(101, 44);
+            btModify.TabIndex = 3;
+            btModify.Text = "Modifier";
+            btModify.TextAlign = ContentAlignment.MiddleRight;
+            btModify.UseVisualStyleBackColor = true;
+            btModify.Click += btModify_Click;
+            // 
             // tlpChampText
             // 
             tlpChampText.ColumnCount = 2;
@@ -226,19 +239,6 @@
             dtpBirthday.Name = "dtpBirthday";
             dtpBirthday.Size = new Size(468, 23);
             dtpBirthday.TabIndex = 5;
-            // 
-            // btModify
-            // 
-            btModify.Image = ConnectinBDD.Properties.Resources.pen_edit_modify_icon_149416;
-            btModify.ImageAlign = ContentAlignment.MiddleLeft;
-            btModify.Location = new Point(324, 3);
-            btModify.Name = "btModify";
-            btModify.Size = new Size(101, 44);
-            btModify.TabIndex = 3;
-            btModify.Text = "Modifier";
-            btModify.TextAlign = ContentAlignment.MiddleRight;
-            btModify.UseVisualStyleBackColor = true;
-            btModify.Click += btModify_Click;
             // 
             // frmMain
             // 
