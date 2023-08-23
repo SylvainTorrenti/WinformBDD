@@ -118,7 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="filesystems_garbage_full_670" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\filesystems_garbage_full_670.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="refresh_arrow_1546" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh_arrow_1546.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="addition-sign_icon-icons.com_73100" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\addition-sign_icon-icons.com_73100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pen_edit_modify_icon_149416" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pen_edit_modify_icon_149416.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -63,6 +63,36 @@ namespace ConnectinBDD.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap addition_sign_icon_icons_com_73100 {
+            get {
+                object obj = ResourceManager.GetObject("addition-sign_icon-icons.com_73100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap filesystems_garbage_full_670 {
+            get {
+                object obj = ResourceManager.GetObject("filesystems_garbage_full_670", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pen_edit_modify_icon_149416 {
+            get {
+                object obj = ResourceManager.GetObject("pen_edit_modify_icon_149416", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap refresh_arrow_1546 {
             get {
                 object obj = ResourceManager.GetObject("refresh_arrow_1546", resourceCulture);

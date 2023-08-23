@@ -19,7 +19,7 @@ namespace WinformBDD
 
         private void btRefresh_Click(object sender, EventArgs e)
         {
-            
+
             Utilisateur current = bsUtilisateur.Current as Utilisateur;
             //efface la collection pour eviter de la répéter 
             _utils.Clear();
@@ -41,6 +41,25 @@ namespace WinformBDD
             _utils = new BindingList<Utilisateur>();
             bsUtilisateur.DataSource = _utils;
             dgvUtilisateur.DataSource = bsUtilisateur;
+            tbxName.DataBindings.Add("text", bsUtilisateur, "Nom", false, DataSourceUpdateMode.Never);
+            tbxFirstName.DataBindings.Add("text", bsUtilisateur, "Prenom", false, DataSourceUpdateMode.Never);
+            dtpBirthday.DataBindings.Add("text", bsUtilisateur, "DtNaiss", false, DataSourceUpdateMode.Never);
+        }
+
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+            _utils.Clear();
+        }
+
+        private void btAdd_Click(object sender, EventArgs e)
+        {
+            Utilisateur newUtil = new Utilisateur(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
+            _utils.Add(newUtil);
+        }
+
+        private void btModify_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
