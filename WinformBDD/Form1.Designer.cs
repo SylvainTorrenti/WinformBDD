@@ -167,6 +167,7 @@
             // 
             // tlpChampText
             // 
+            tlpChampText.AutoSize = true;
             tlpChampText.ColumnCount = 2;
             tlpChampText.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.25043F));
             tlpChampText.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80.74957F));
@@ -252,6 +253,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Utilisateur";
             tlpMain.ResumeLayout(false);
+            tlpMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUtilisateur).EndInit();
             flpRefresh.ResumeLayout(false);
             tlpChampText.ResumeLayout(false);
@@ -271,11 +273,11 @@
         private Label lbName;
         private Label lbFirstname;
         private Label lbBirthday;
-        private TextBox tbxName;
         private TextBox tbxFirstName;
         private DateTimePicker dtpBirthday;
         private Button btDelete;
         private Button btAdd;
         private Button btModify;
+        internal TextBox tbxName;
     }
 }

@@ -44,17 +44,19 @@ namespace WinformBDD
             tbxName.DataBindings.Add("text", bsUtilisateur, "Nom", false, DataSourceUpdateMode.Never);
             tbxFirstName.DataBindings.Add("text", bsUtilisateur, "Prenom", false, DataSourceUpdateMode.Never);
             dtpBirthday.DataBindings.Add("text", bsUtilisateur, "DtNaiss", false, DataSourceUpdateMode.Never);
+            dgvUtilisateur.Columns["Id"].Visible = false;
+            dgvUtilisateur.Columns["DtNaiss"].HeaderText = "Date de naissance";
+            dgvUtilisateur.Columns["DtNaiss"].DefaultCellStyle.Format = "D";
         }
 
         private void btDelete_Click(object sender, EventArgs e)
         {
-            _utils.Clear();
+
         }
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            Utilisateur newUtil = new Utilisateur(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
-            _utils.Add(newUtil);
+            _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
         }
 
         private void btModify_Click(object sender, EventArgs e)

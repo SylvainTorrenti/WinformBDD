@@ -2,6 +2,8 @@
 using ConnectinBDD.Properties;
 using Dapper;
 using MySql.Data.MySqlClient;
+using System.Drawing;
+using System.Xml.Linq;
 
 namespace WinformBDD
 {
@@ -26,6 +28,35 @@ namespace WinformBDD
                 return _dbconnection.Query<Utilisateur>(q);
             }
             //ferme la connection même si la requête precedente echoue
+            finally
+            {
+                _dbconnection.Close();
+            }
+
+        }
+        public void AddUser(string nom, string prenom, DateTime dtNaiss)
+        {
+            try
+            {
+
+                _dbconnection.Open();
+                var sql = "INSERT INTO utilisateurs (Nom, Prenom , DtNaiss) VALUES (@Nom, @Prenom,@DtNaiss)";
+                var newUtil = new {Nom = nom, Prenom = prenom, DtNaiss = dtNaiss};
+                _dbconnection.Execute(sql, newUtil);
+            }
+            finally
+            {
+                _dbconnection.Close();
+            }
+        }
+        public void DeleteUser()
+        {
+            try
+            {
+
+                _dbconnection.Open();
+
+            }
             finally
             {
                 _dbconnection.Close();
