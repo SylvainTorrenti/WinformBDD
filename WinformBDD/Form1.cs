@@ -51,12 +51,20 @@ namespace WinformBDD
 
         private void btDelete_Click(object sender, EventArgs e)
         {
+            Utilisateur current = bsUtilisateur.Current as Utilisateur;
+            if (current is not null)
+            {
+                bsUtilisateur.Position = _utils.IndexOf(_utils.Where(u => u.Id == current.Id).FirstOrDefault());
+                _db.DeleteUser(current.Id);
+                btRefresh.PerformClick();
+            }
 
         }
 
         private void btAdd_Click(object sender, EventArgs e)
         {
             _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
+            btRefresh.PerformClick();
         }
 
         private void btModify_Click(object sender, EventArgs e)

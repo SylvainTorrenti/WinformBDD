@@ -34,28 +34,28 @@ namespace WinformBDD
             }
 
         }
-        public void AddUser(string nom, string prenom, DateTime dtNaiss)
+        public int AddUser(string nom, string prenom, DateTime dtNaiss)
         {
             try
             {
 
                 _dbconnection.Open();
-                var sql = "INSERT INTO utilisateurs (Nom, Prenom , DtNaiss) VALUES (@Nom, @Prenom,@DtNaiss)";
-                var newUtil = new {Nom = nom, Prenom = prenom, DtNaiss = dtNaiss};
-                _dbconnection.Execute(sql, newUtil);
+                var sql = "INSERT INTO utilisateurs (Nom, Prenom , DtNaiss) VALUES (@Nom, @Prenom,@DtNaiss)";                
+                return _dbconnection.Execute(sql, new { nom, prenom, dtNaiss });
             }
             finally
             {
                 _dbconnection.Close();
             }
         }
-        public void DeleteUser()
+        public int DeleteUser(int Id)
         {
             try
             {
 
                 _dbconnection.Open();
-
+                var sql = "DELETE FROM db09.utilisateurs " + "WHERE Id = @Id;";
+                return _dbconnection.Execute(sql, new {Id});
             }
             finally
             {
