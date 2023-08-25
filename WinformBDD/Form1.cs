@@ -69,7 +69,13 @@ namespace WinformBDD
 
         private void btModify_Click(object sender, EventArgs e)
         {
-
+            Utilisateur current = bsUtilisateur.Current as Utilisateur;
+            if (current is not null)
+            {
+                bsUtilisateur.Position = _utils.IndexOf(_utils.Where(u => u.Id == current.Id).FirstOrDefault());
+                _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
+                btRefresh.PerformClick();
+            }
         }
     }
 }

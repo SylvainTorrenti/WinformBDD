@@ -1,6 +1,7 @@
 ﻿using ConnectinBDD;
 using ConnectinBDD.Properties;
 using Dapper;
+using Microsoft.VisualBasic;
 using MySql.Data.MySqlClient;
 using System.Drawing;
 using System.Xml.Linq;
@@ -54,7 +55,7 @@ namespace WinformBDD
             {
 
                 _dbconnection.Open();
-                var sql = "DELETE FROM db09.utilisateurs " + "WHERE Id = @Id;";
+                var sql = "DELETE FROM db09.utilisateurs WHERE Id = @Id;";
                 return _dbconnection.Execute(sql, new {Id});
             }
             finally
@@ -62,5 +63,20 @@ namespace WinformBDD
                 _dbconnection.Close();
             }
         }
+        public int UpdateUser(int id, string nom, string prenom, DateTime dtNaiss)
+        {
+            try
+            {
+
+                _dbconnection.Open();
+                var sql = "UPDATE db09.utilisateurs SET Nom = @Nom, Prenom=@Prenom, DtNaiss=@DtNaiss WHERE Id = @Id;";
+                return _dbconnection.Execute(sql, new { id, nom, prenom, dtNaiss });
+            }
+            finally
+            {
+                _dbconnection.Close();
+            }
+        }
+
     }
 }
