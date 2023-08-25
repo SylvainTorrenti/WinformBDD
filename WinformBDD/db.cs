@@ -63,14 +63,14 @@ namespace WinformBDD
                 _dbconnection.Close();
             }
         }
-        public int UpdateUser(int id, string nom, string prenom, DateTime dtNaiss)
+        public int UpdateUser(int id, string nom, string prenom, DateTime dtNaiss, string currentNom, string currentPrenom, DateTime currentDtNaiss)
         {
             try
             {
 
                 _dbconnection.Open();
-                var sql = "UPDATE db09.utilisateurs SET Nom = @Nom, Prenom=@Prenom, DtNaiss=@DtNaiss WHERE Id = @Id;";
-                return _dbconnection.Execute(sql, new { id, nom, prenom, dtNaiss });
+                var sql = "UPDATE db09.utilisateurs SET Nom = @Nom, Prenom=@Prenom, DtNaiss=@DtNaiss WHERE Id = @Id AND Nom = @currentNom AND Prenom=@currentPrenom AND DtNaiss=@currentDtNaiss;";
+                return _dbconnection.Execute(sql, new { id, nom, prenom, dtNaiss, currentNom, currentPrenom, currentDtNaiss});
             }
             finally
             {
