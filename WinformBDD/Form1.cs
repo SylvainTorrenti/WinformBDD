@@ -19,7 +19,7 @@ namespace WinformBDD
 
         private void btRefresh_Click(object sender, EventArgs e)
         {
-
+            //créé un current qui correspond à l'utilisateur selectionner grâce au BindingSource
             Utilisateur current = bsUtilisateur.Current as Utilisateur;
             //efface la collection pour eviter de la répéter 
             _utils.Clear();
@@ -32,6 +32,72 @@ namespace WinformBDD
             if (current is not null)
             {
                 bsUtilisateur.Position = _utils.IndexOf(_utils.Where(u => u.Id == current.Id).FirstOrDefault());
+            }
+        }
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+            //créé un current qui correspond à l'utilisateur selectionner grâce au BindingSource
+            Utilisateur current = bsUtilisateur.Current as Utilisateur;
+            //Verifie que le current n'est pas null
+            if (current is not null)
+            {
+                //Affiche une MessageBox qui demande la confirmation de l'action. Dans ce message il est indiqué le nom de l'utilisateur concerné par la suppression. 
+                //Si l'utilisateur confirme la demande alors la méthode est effectuée
+                if (MessageBox.Show($"Accepter la suppression de l'utilisateur {current.Nom} ?", "Suprression", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    //Appel la méthode créé dans db avec comme paramétre l'id récupéré grâce au current.
+                    _db.DeleteUser(current.Id);
+                    //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
+                    btRefresh.PerformClick();
+                }
+
+            }
+
+        }
+
+        private void btAdd_Click(object sender, EventArgs e)
+        {
+            //Affiche une MessageBox demandant la confirmation de la création de l'utilisateur.
+            //Dans ce MessageBox les information fournit pour la création sont présente pour que l'utilisateur voit precisement ce qu'il va créé
+            //Si l'utilisateur confirme la requête est affectuée
+            if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                //Appel la méthode créé dans db avec comme paramétre les valeurs renseigner dans les champs par l'utilisateur
+                _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
+                //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
+                btRefresh.PerformClick();
+
+            }
+        }
+
+        private void btModify_Click(object sender, EventArgs e)
+        {
+            //créé un current qui correspond à l'utilisateur selectionner grâce au BindingSource
+            Utilisateur current = bsUtilisateur.Current as Utilisateur;
+            //Verifie que le current n'est pas null
+            if (current is not null)
+            {
+                //Affiche une MessageBox demandant la confirmation de l'update de l'utilisateur.
+                //Dans ce MessageBox les information fournit pour l'update sont présente pour que l'utilisateur voit precisement ce qu'il va mettre à jour
+                //Si l'utilisateur confirme la requête est affectuée
+                if (MessageBox.Show($"Confirmer la modification de l'utilisateur {current.Nom} ?", "Modification", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    //Appel la méthode créé dans db avec comme paramétre les valeurs renseigner dans les champs par l'utilisateur
+                    var nb = _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
+                    //Si la méthode échoue. Donc si elle renvoie "0" un message apparait pour que l'uitlisateur sache que l'operation à echouée
+                    if (nb == 0)
+                    {
+                        MessageBox.Show("Les données ont été modifiées la mise à jour est impossible", "Echec des Modifications", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    //Si la méthode à reussi. Donc si elle renvoie "1" (!!!!!!! Dans ce cas elle renvoie "1" car notre mise a jour ne concerne qu'UNE ligne si on effectue des mise a jour sur 5 ligne le resultat retourné sera 5)
+                    if (nb == 1)
+                    {
+                        //Un message apparait avec l'ancien Nom de l'utilisateur que nous récuperons avec current.Nom et toutes les nouvelles informations récupéré via les different champs. Le current n'a pas encore changer car nous n'avons pas encore rafraichi les données.
+                        MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : {dtpBirthday.Text}", "Modifications effectuées");
+                        //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
+                        btRefresh.PerformClick();
+                    }
+                }
             }
         }
         //methode pour initier les bind
@@ -49,48 +115,5 @@ namespace WinformBDD
             dgvUtilisateur.Columns["DtNaiss"].DefaultCellStyle.Format = "D";
         }
 
-        private void btDelete_Click(object sender, EventArgs e)
-        {
-            Utilisateur current = bsUtilisateur.Current as Utilisateur;
-            if (current is not null)
-            {
-                if (MessageBox.Show($"Accepter la suppression de l'utilisateur {current.Nom} ?", "Suprression", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-                    _db.DeleteUser(current.Id);
-
-                    btRefresh.PerformClick();
-                }
-
-            }
-
-        }
-
-        private void btAdd_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            {
-                _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
-                btRefresh.PerformClick();
-
-            }
-        }
-
-        private void btModify_Click(object sender, EventArgs e)
-        {
-            Utilisateur current = bsUtilisateur.Current as Utilisateur;
-            if (current is not null)
-            {
-                if (MessageBox.Show($"Confirmer la modification de l'utilisateur {current.Nom} ?", "Modification", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-                {
-
-                    var nb = _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
-                    if (nb == 0)
-                    {
-                        MessageBox.Show("Les données ont été modifiées la mise à jour est impossible", "Echec des Modifications", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    btRefresh.PerformClick();
-                }
-            }
-        }
     }
 }
