@@ -54,17 +54,25 @@ namespace WinformBDD
             Utilisateur current = bsUtilisateur.Current as Utilisateur;
             if (current is not null)
             {
-                bsUtilisateur.Position = _utils.IndexOf(_utils.Where(u => u.Id == current.Id).FirstOrDefault());
-                _db.DeleteUser(current.Id);
-                btRefresh.PerformClick();
+                if (MessageBox.Show($"Accepter la suppression de l'utilisateur {current.Nom} ?", "Suprression", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    _db.DeleteUser(current.Id);
+
+                    btRefresh.PerformClick();
+                }
+
             }
 
         }
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
-            btRefresh.PerformClick();
+            if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
+                btRefresh.PerformClick();
+
+            }
         }
 
         private void btModify_Click(object sender, EventArgs e)
@@ -72,9 +80,16 @@ namespace WinformBDD
             Utilisateur current = bsUtilisateur.Current as Utilisateur;
             if (current is not null)
             {
-                bsUtilisateur.Position = _utils.IndexOf(_utils.Where(u => u.Id == current.Id).FirstOrDefault());
-                _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
-                btRefresh.PerformClick();
+                if (MessageBox.Show($"Confirmer la modification de l'utilisateur {current.Nom} ?", "Modification", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+
+                    var nb = _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
+                    if (nb == 0)
+                    {
+                        MessageBox.Show("Les données ont été modifiées la mise à jour est impossible", "Modification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    btRefresh.PerformClick();
+                }
             }
         }
     }

@@ -190,32 +190,38 @@
             // lbName
             // 
             lbName.AutoSize = true;
+            lbName.Dock = DockStyle.Fill;
             lbName.Location = new Point(3, 5);
             lbName.Margin = new Padding(3, 5, 3, 0);
             lbName.Name = "lbName";
-            lbName.Size = new Size(34, 15);
+            lbName.Size = new Size(107, 25);
             lbName.TabIndex = 0;
             lbName.Text = "Nom";
+            lbName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lbFirstname
             // 
             lbFirstname.AutoSize = true;
+            lbFirstname.Dock = DockStyle.Fill;
             lbFirstname.Location = new Point(3, 35);
             lbFirstname.Margin = new Padding(3, 5, 3, 0);
             lbFirstname.Name = "lbFirstname";
-            lbFirstname.Size = new Size(49, 15);
+            lbFirstname.Size = new Size(107, 25);
             lbFirstname.TabIndex = 1;
             lbFirstname.Text = "Prénom";
+            lbFirstname.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lbBirthday
             // 
             lbBirthday.AutoSize = true;
+            lbBirthday.Dock = DockStyle.Fill;
             lbBirthday.Location = new Point(3, 65);
             lbBirthday.Margin = new Padding(3, 5, 3, 0);
             lbBirthday.Name = "lbBirthday";
-            lbBirthday.Size = new Size(101, 15);
+            lbBirthday.Size = new Size(107, 25);
             lbBirthday.TabIndex = 2;
             lbBirthday.Text = "Date de naissance";
+            lbBirthday.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tbxName
             // 
@@ -236,6 +242,7 @@
             // dtpBirthday
             // 
             dtpBirthday.Dock = DockStyle.Fill;
+            dtpBirthday.Format = DateTimePickerFormat.Short;
             dtpBirthday.Location = new Point(116, 63);
             dtpBirthday.Name = "dtpBirthday";
             dtpBirthday.Size = new Size(468, 23);
