@@ -86,7 +86,7 @@ namespace WinformBDD
                     var nb = _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
                     if (nb == 0)
                     {
-                        MessageBox.Show("Les données ont été modifiées la mise à jour est impossible", "Modification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Les données ont été modifiées la mise à jour est impossible", "Echec des Modifications", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     btRefresh.PerformClick();
                 }
