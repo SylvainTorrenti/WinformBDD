@@ -50,10 +50,11 @@ namespace WinformBDD
                 _dbconnection.Open();
                 //Requête permetant la création de l'utilisateur 
                 //Les nom de variable avec "@" sont renseigner via l'application et evite ainsi l'injection SQL
-                var sql = "INSERT INTO utilisateurs (Nom, Prenom , DtNaiss) VALUES (@Nom, @Prenom,@DtNaiss)";      
+                var sql = "INSERT INTO utilisateurs (Nom, Prenom , DtNaiss, IdDept) VALUES (@Nom, @Prenom,@DtNaiss,10); SELECT LAST_INSERT_ID() ";      
                 //Effectue la commande "Execute" qui retourne le nombre de ligne modifier dans la BDD. 
                 //Passage des paramétre qui iront automatiquement remplace les variables avec "@"
-                return _dbconnection.Execute(sql, new { nom, prenom, dtNaiss });
+                var result = _dbconnection.Query<int>(sql, new { nom, prenom, dtNaiss });
+                return result.Single();
             }
             finally
             {

@@ -61,14 +61,26 @@ namespace WinformBDD
             //Dans ce MessageBox les information fournit pour la création sont présente pour que l'utilisateur voit precisement ce qu'il va créé
             //Si l'utilisateur confirme la requête est affectuée
             if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+
+                
+                foreach (var utilisateur in _utils)
+                {
+                    if (utilisateur.Nom == tbxName.Text && utilisateur.Prenom == tbxFirstName.Text && utilisateur.DtNaiss == dtpBirthday.Value)
+                    {
+                        MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
+                    }
+                }
             {
                 //Appel la méthode créé dans db avec comme paramétre les valeurs renseigner dans les champs par l'utilisateur
-                _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
+                var id = _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
                 //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
                 btRefresh.PerformClick();
+                //Positionement sur l'utilisateur créé
+                bsUtilisateur.Position = _utils.IndexOf(_utils.Where(u => u.Id == id).FirstOrDefault());
 
             }
         }
+
 
         private void btModify_Click(object sender, EventArgs e)
         {
@@ -113,6 +125,7 @@ namespace WinformBDD
             dgvUtilisateur.Columns["Id"].Visible = false;
             dgvUtilisateur.Columns["DtNaiss"].HeaderText = "Date de naissance";
             dgvUtilisateur.Columns["DtNaiss"].DefaultCellStyle.Format = "D";
+            dgvUtilisateur.Columns["IdDept"].HeaderText = "Département";
         }
 
     }

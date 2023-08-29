@@ -12,11 +12,11 @@ namespace ConnectinBDD
     /// </summary>
     internal class Utilisateur
     {
-        private static int CountId = 1;
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
         public DateTime DtNaiss { get; set; }
+        public string IdDept { get; set; }
 
         public Utilisateur()
         {
@@ -24,7 +24,6 @@ namespace ConnectinBDD
         }
         public Utilisateur(string nom,string prenom,DateTime dtNaiss)
         {
-            this.Id = CountId++;
             this.Nom = nom;
             this.Prenom = prenom;
             this.DtNaiss = dtNaiss;
