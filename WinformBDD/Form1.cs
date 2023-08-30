@@ -57,20 +57,23 @@ namespace WinformBDD
 
         private void btAdd_Click(object sender, EventArgs e)
         {
+            // Verifie si le DTP est check
             if (dtpBirthday.Checked == false)
             {
+                // Verifie si un utilisateur identique n'existe pas deja
                 if (_utils.Where(util => util.Nom == tbxName.Text && util.Prenom == tbxFirstName.Text && util.DtNaiss == null).Count() >= 1)
                 {
                     MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
                 }
                 if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n sans date de naissance ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-
+                    // Creation de l'utilisateur avec un date NULL
                     var idDateNull = _db.AddUser(tbxName.Text, tbxFirstName.Text, null);
                     btRefresh.PerformClick();
                     return;
                 }
             }
+            // Verifie si un utilisateur identique n'existe pas deja
             if (_utils.Where(util => util.Nom == tbxName.Text && util.Prenom == tbxFirstName.Text && util.DtNaiss == dtpBirthday.Value).Count() >= 1)
             {
                 MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
@@ -115,6 +118,7 @@ namespace WinformBDD
                     //Si la méthode à reussi. Donc si elle renvoie "1" (!!!!!!! Dans ce cas elle renvoie "1" car notre mise a jour ne concerne qu'UNE ligne si on effectue des mise a jour sur 5 ligne le resultat retourné sera 5)
                     if (nb == 1)
                     {
+                        //Verifie si le DTP est check
                         if (dtpBirthday.Checked == true)
                         {
                             //Un message apparait avec l'ancien Nom de l'utilisateur que nous récuperons avec current.Nom et toutes les nouvelles informations récupéré via les different champs. Le current n'a pas encore changer car nous n'avons pas encore rafraichi les données.
@@ -122,6 +126,7 @@ namespace WinformBDD
                         }
                         else
                         {
+                            //Update l'utilisateur avec la date NULL
                             _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, null, current.Nom, current.Prenom);
                             MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : Sans date", "Modifications effectuées");
                         }

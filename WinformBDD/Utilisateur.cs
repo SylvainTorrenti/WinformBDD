@@ -15,6 +15,7 @@ namespace ConnectinBDD
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
+        // le "?" signifie que le champ peut petre NULL
         public DateTime? DtNaiss { get; set; }
         public string IdDept { get; set; }
 
