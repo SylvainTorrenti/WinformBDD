@@ -61,15 +61,23 @@ namespace WinformBDD
             //Dans ce MessageBox les information fournit pour la création sont présente pour que l'utilisateur voit precisement ce qu'il va créé
             //Si l'utilisateur confirme la requête est affectuée
             if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
 
-                
-                foreach (var utilisateur in _utils)
+                var doublon = from util in _utils where util.Nom == tbxName.Text && util.Prenom == tbxFirstName.Text && util.DtNaiss == dtpBirthday.Value select util;
+                if (doublon.Count() >= 1)
                 {
-                    if (utilisateur.Nom == tbxName.Text && utilisateur.Prenom == tbxFirstName.Text && utilisateur.DtNaiss == dtpBirthday.Value)
-                    {
-                        MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
-                    }
+                    MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
                 }
+                
+            }
+
+            //foreach (var utilisateur in _utils)
+            //{
+            //    if (utilisateur.Nom == tbxName.Text && utilisateur.Prenom == tbxFirstName.Text && utilisateur.DtNaiss == dtpBirthday.Value)
+            //    {
+            //        MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
+            //    }
+            //}
             {
                 //Appel la méthode créé dans db avec comme paramétre les valeurs renseigner dans les champs par l'utilisateur
                 var id = _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
