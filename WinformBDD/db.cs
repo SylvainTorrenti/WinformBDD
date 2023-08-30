@@ -42,7 +42,7 @@ namespace WinformBDD
         /// <param name="prenom">Recuperé grace au champ tbxFirstName.Text</param>
         /// <param name="dtNaiss">Recuperé grace au champ dtpBirthday.Text (attention dtpBirthday.Value est different bien verifier de ce que nous voulons récupérer</param>
         /// <returns></returns>
-        public int AddUser(string nom, string prenom, DateTime dtNaiss)
+        public int AddUser(string nom, string prenom, DateTime? dtNaiss)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace WinformBDD
         /// <param name="currentPrenom">Récupéré grâce au "current.Prenom"</param>
         /// <param name="currentDtNaiss">Récupéré grâce au "current.DtNaiss"</param>
         /// <returns></returns>
-        public int UpdateUser(int id, string nom, string prenom, DateTime dtNaiss, string currentNom, string currentPrenom, DateTime currentDtNaiss)
+        public int UpdateUser(int id, string nom, string prenom, DateTime? dtNaiss, string currentNom, string currentPrenom, DateTime? currentDtNaiss)
         {
             try
             {

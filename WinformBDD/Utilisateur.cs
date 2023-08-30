@@ -15,18 +15,8 @@ namespace ConnectinBDD
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
-        public DateTime DtNaiss { get; set; }
+        public DateTime? DtNaiss { get; set; }
         public string IdDept { get; set; }
 
-        public Utilisateur()
-        {
-            
-        }
-        public Utilisateur(string nom,string prenom,DateTime dtNaiss)
-        {
-            this.Nom = nom;
-            this.Prenom = prenom;
-            this.DtNaiss = dtNaiss;
-        }
     }
 }

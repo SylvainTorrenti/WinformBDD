@@ -245,6 +245,7 @@
             dtpBirthday.Format = DateTimePickerFormat.Short;
             dtpBirthday.Location = new Point(116, 63);
             dtpBirthday.Name = "dtpBirthday";
+            dtpBirthday.ShowCheckBox = true;
             dtpBirthday.Size = new Size(468, 23);
             dtpBirthday.TabIndex = 5;
             // 

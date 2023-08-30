@@ -57,28 +57,31 @@ namespace WinformBDD
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            //Affiche une MessageBox demandant la confirmation de la création de l'utilisateur.
-            //Dans ce MessageBox les information fournit pour la création sont présente pour que l'utilisateur voit precisement ce qu'il va créé
-            //Si l'utilisateur confirme la requête est affectuée
-            if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (dtpBirthday.Checked == false)
             {
-
-                var doublon = from util in _utils where util.Nom == tbxName.Text && util.Prenom == tbxFirstName.Text && util.DtNaiss == dtpBirthday.Value select util;
-                if (doublon.Count() >= 1)
+                if (_utils.Where(util => util.Nom == tbxName.Text && util.Prenom == tbxFirstName.Text && util.DtNaiss == null).Count() >= 1)
                 {
                     MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
                 }
-                
-            }
+                if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n sans date de naissance ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
 
-            //foreach (var utilisateur in _utils)
-            //{
-            //    if (utilisateur.Nom == tbxName.Text && utilisateur.Prenom == tbxFirstName.Text && utilisateur.DtNaiss == dtpBirthday.Value)
-            //    {
-            //        MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
-            //    }
-            //}
+                    var idDateNull = _db.AddUser(tbxName.Text, tbxFirstName.Text, null);
+                    btRefresh.PerformClick();
+                    return;
+                }
+            }
+            else if (_utils.Where(util => util.Nom == tbxName.Text && util.Prenom == tbxFirstName.Text && util.DtNaiss == dtpBirthday.Value).Count() >= 1)
             {
+                MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
+            }
+            //Affiche une MessageBox demandant la confirmation de la création de l'utilisateur.
+            //Dans ce MessageBox les information fournit pour la création sont présente pour que l'utilisateur voit precisement ce qu'il va créé
+            //Si l'utilisateur confirme la requête est affectuée
+            else if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+
+
                 //Appel la méthode créé dans db avec comme paramétre les valeurs renseigner dans les champs par l'utilisateur
                 var id = _db.AddUser(tbxName.Text, tbxFirstName.Text, dtpBirthday.Value);
                 //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
