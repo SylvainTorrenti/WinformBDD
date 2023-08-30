@@ -71,14 +71,14 @@ namespace WinformBDD
                     return;
                 }
             }
-            else if (_utils.Where(util => util.Nom == tbxName.Text && util.Prenom == tbxFirstName.Text && util.DtNaiss == dtpBirthday.Value).Count() >= 1)
+            if (_utils.Where(util => util.Nom == tbxName.Text && util.Prenom == tbxFirstName.Text && util.DtNaiss == dtpBirthday.Value).Count() >= 1)
             {
                 MessageBox.Show("L'utilisateur que vous voulez créé existe déjà", "Erreur de creation", MessageBoxButtons.OK, MessageBoxIcon.Error); return;
             }
             //Affiche une MessageBox demandant la confirmation de la création de l'utilisateur.
             //Dans ce MessageBox les information fournit pour la création sont présente pour que l'utilisateur voit precisement ce qu'il va créé
             //Si l'utilisateur confirme la requête est affectuée
-            else if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show($"Confirmer la creation de l'utilisateur \n nom : {tbxName.Text} \n prenom : {tbxFirstName.Text} \n date de naissance : {dtpBirthday.Text} ?", "Creation", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
 
 
@@ -106,7 +106,7 @@ namespace WinformBDD
                 if (MessageBox.Show($"Confirmer la modification de l'utilisateur {current.Nom} ?", "Modification", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     //Appel la méthode créé dans db avec comme paramétre les valeurs renseigner dans les champs par l'utilisateur
-                    var nb = _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
+                    var nb = _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom);
                     //Si la méthode échoue. Donc si elle renvoie "0" un message apparait pour que l'uitlisateur sache que l'operation à echouée
                     if (nb == 0)
                     {
@@ -115,8 +115,16 @@ namespace WinformBDD
                     //Si la méthode à reussi. Donc si elle renvoie "1" (!!!!!!! Dans ce cas elle renvoie "1" car notre mise a jour ne concerne qu'UNE ligne si on effectue des mise a jour sur 5 ligne le resultat retourné sera 5)
                     if (nb == 1)
                     {
-                        //Un message apparait avec l'ancien Nom de l'utilisateur que nous récuperons avec current.Nom et toutes les nouvelles informations récupéré via les different champs. Le current n'a pas encore changer car nous n'avons pas encore rafraichi les données.
-                        MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : {dtpBirthday.Text}", "Modifications effectuées");
+                        if (dtpBirthday.Checked == true)
+                        {
+                            //Un message apparait avec l'ancien Nom de l'utilisateur que nous récuperons avec current.Nom et toutes les nouvelles informations récupéré via les different champs. Le current n'a pas encore changer car nous n'avons pas encore rafraichi les données.
+                            MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : {dtpBirthday.Text}", "Modifications effectuées");
+                        }
+                        else
+                        {
+                            _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, null, current.Nom, current.Prenom);
+                            MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : Sans date", "Modifications effectuées");
+                        }
                         //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
                         btRefresh.PerformClick();
                     }

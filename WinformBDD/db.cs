@@ -97,7 +97,7 @@ namespace WinformBDD
         /// <param name="currentPrenom">Récupéré grâce au "current.Prenom"</param>
         /// <param name="currentDtNaiss">Récupéré grâce au "current.DtNaiss"</param>
         /// <returns></returns>
-        public int UpdateUser(int id, string nom, string prenom, DateTime? dtNaiss, string currentNom, string currentPrenom, DateTime? currentDtNaiss)
+        public int UpdateUser(int id, string nom, string prenom, DateTime? dtNaiss, string currentNom, string currentPrenom)
         {
             try
             {
@@ -105,10 +105,10 @@ namespace WinformBDD
                 _dbconnection.Open();
                 //Requête permetant la création de l'utilisateur 
                 //Les nom de variable avec "@" sont renseigner via l'application et evite ainsi l'injection SQL
-                var sql = "UPDATE db09.utilisateurs SET Nom = @Nom, Prenom=@Prenom, DtNaiss=@DtNaiss WHERE Id = @Id AND Nom = @currentNom AND Prenom=@currentPrenom AND DtNaiss=@currentDtNaiss;";
+                var sql = "UPDATE db09.utilisateurs SET Nom = @Nom, Prenom=@Prenom, DtNaiss=@DtNaiss WHERE Id = @Id AND Nom = @currentNom AND Prenom=@currentPrenom;";
                 //Effectue la commande "Execute" qui retourne le nombre de ligne modifier dans la BDD. 
                 //Passage des paramétre qui iront automatiquement remplace les variables avec "@"
-                return _dbconnection.Execute(sql, new { id, nom, prenom, dtNaiss, currentNom, currentPrenom, currentDtNaiss});
+                return _dbconnection.Execute(sql, new { id, nom, prenom, dtNaiss, currentNom, currentPrenom});
             }
             finally
             {
