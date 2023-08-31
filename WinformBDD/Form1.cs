@@ -112,31 +112,61 @@ namespace WinformBDD
                 //Si l'utilisateur confirme la requête est affectuée
                 if (MessageBox.Show($"Confirmer la modification de l'utilisateur {current.Nom} ?", "Modification", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
-                    //Appel la méthode créé dans db avec comme paramétre les valeurs renseigner dans les champs par l'utilisateur
-                    var nb = _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom);
-                    //Si la méthode échoue. Donc si elle renvoie "0" un message apparait pour que l'uitlisateur sache que l'operation à echouée
-                    if (nb == 0)
+                    if (dtpBirthday.Checked == true)
                     {
-                        MessageBox.Show("Les données ont été modifiées la mise à jour est impossible", "Echec des Modifications", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    //Si la méthode à reussi. Donc si elle renvoie "1" (!!!!!!! Dans ce cas elle renvoie "1" car notre mise a jour ne concerne qu'UNE ligne si on effectue des mise a jour sur 5 ligne le resultat retourné sera 5)
-                    if (nb == 1)
-                    {
-                        //Verifie si le DTP est check
-                        if (dtpBirthday.Checked == true)
+                        if (current.DtNaiss == null)
                         {
-                            //Un message apparait avec l'ancien Nom de l'utilisateur que nous récuperons avec current.Nom et toutes les nouvelles informations récupéré via les different champs. Le current n'a pas encore changer car nous n'avons pas encore rafraichi les données.
-                            MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : {dtpBirthday.Text}", "Modifications effectuées");
+                            var nb2 = _db.UpdateUserWithoutDate(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
+                            if (nb2 == 1)
+                            {
+                                //Verifie si le DTP est check
+                                if (dtpBirthday.Checked == true)
+                                {
+                                    //Un message apparait avec l'ancien Nom de l'utilisateur que nous récuperons avec current.Nom et toutes les nouvelles informations récupéré via les different champs. Le current n'a pas encore changer car nous n'avons pas encore rafraichi les données.
+                                    MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : {dtpBirthday.Text}", "Modifications effectuées");
+                                }
+                                else
+                                {
+                                    //Update l'utilisateur avec la date NULL
+                                    _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, null, current.Nom, current.Prenom, current.DtNaiss);
+                                    MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : Sans date", "Modifications effectuées");
+                                }
+                                //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
+                                btRefresh.PerformClick();
+                            }
                         }
-                        else
+                        var nb = _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
+                        if (nb == 1)
                         {
-                            //Update l'utilisateur avec la date NULL
-                            _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, null, current.Nom, current.Prenom);
+                            //Verifie si le DTP est check
+                            if (dtpBirthday.Checked == true)
+                            {
+                                //Un message apparait avec l'ancien Nom de l'utilisateur que nous récuperons avec current.Nom et toutes les nouvelles informations récupéré via les different champs. Le current n'a pas encore changer car nous n'avons pas encore rafraichi les données.
+                                MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : {dtpBirthday.Text}", "Modifications effectuées");
+                            }
+                            else
+                            {
+                                //Update l'utilisateur avec la date NULL
+                                _db.UpdateUser(current.Id, tbxName.Text, tbxFirstName.Text, null, current.Nom, current.Prenom, current.DtNaiss);
+                                MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : Sans date", "Modifications effectuées");
+                            }
+                            //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
+                            btRefresh.PerformClick();
+                        }
+                    }
+                    if (dtpBirthday.Checked == false)
+                    {
+                        var nb = _db.UpdateUserWithoutDate(current.Id, tbxName.Text, tbxFirstName.Text, null, current.Nom, current.Prenom, current.DtNaiss);
+                        if (nb == 1)
+                        {
                             MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : Sans date", "Modifications effectuées");
                         }
-                        //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
+                        //    //Simule un click sur le bouton refresh pour que l'utilisateur voit le résultat directement
                         btRefresh.PerformClick();
+                        //}
                     }
+
+
                 }
             }
         }
