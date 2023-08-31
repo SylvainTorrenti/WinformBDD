@@ -260,6 +260,7 @@
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Utilisateur";
+            Load += frmMain_Load;
             tlpMain.ResumeLayout(false);
             tlpMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvUtilisateur).EndInit();

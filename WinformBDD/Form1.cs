@@ -16,7 +16,11 @@ namespace WinformBDD
             InitializeBinding();
 
         }
-
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            //Simule le click pour afficher les données à l'ouverture de l'application
+            btRefresh.PerformClick();
+        }
         private void btRefresh_Click(object sender, EventArgs e)
         {
             //créé un current qui correspond à l'utilisateur selectionner grâce au BindingSource
@@ -151,6 +155,7 @@ namespace WinformBDD
             dgvUtilisateur.Columns["DtNaiss"].DefaultCellStyle.Format = "D";
             dgvUtilisateur.Columns["IdDept"].HeaderText = "Département";
         }
+
 
     }
 }
