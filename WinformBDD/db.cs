@@ -116,7 +116,7 @@ namespace WinformBDD
                 _dbconnection.Close();
             }
         }
-        public int UpdateUserWithoutDate(int id, string nom, string prenom, DateTime? dtNaiss, string currentNom, string currentPrenom, DateTime? currentDtnaiss)
+        public int UpdateUserWithoutDate(int id, string nom, string prenom, DateTime? dtNaiss, string currentNom, string currentPrenom)
         {
             try
             {

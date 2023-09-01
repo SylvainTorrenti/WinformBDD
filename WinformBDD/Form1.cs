@@ -116,7 +116,7 @@ namespace WinformBDD
                     {
                         if (current.DtNaiss == null)
                         {
-                            var nb2 = _db.UpdateUserWithoutDate(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom, current.DtNaiss);
+                            var nb2 = _db.UpdateUserWithoutDate(current.Id, tbxName.Text, tbxFirstName.Text, dtpBirthday.Value, current.Nom, current.Prenom);
                             if (nb2 == 1)
                             {
                                 //Verifie si le DTP est check
@@ -156,7 +156,7 @@ namespace WinformBDD
                     }
                     if (dtpBirthday.Checked == false)
                     {
-                        var nb = _db.UpdateUserWithoutDate(current.Id, tbxName.Text, tbxFirstName.Text, null, current.Nom, current.Prenom, current.DtNaiss);
+                        var nb = _db.UpdateUserWithoutDate(current.Id, tbxName.Text, tbxFirstName.Text, null, current.Nom, current.Prenom);
                         if (nb == 1)
                         {
                             MessageBox.Show($"Les modifications de l'utilisateur {current.Nom} ont étaient effectuées. \n Maintenant elles sont : \n Nom : {tbxName.Text} \n Prenom : {tbxFirstName.Text} \n Date de naissance : Sans date", "Modifications effectuées");
